@@ -1218,11 +1218,24 @@
     const key   = 'fan-imgs-' + pid;
     let saved   = {};
     try { saved = JSON.parse(localStorage.getItem(key) || '{}'); } catch (e) {}
+    const projectImages = {
+  "01": [
+    "images/cartonic main.png",
+    "images/cartonic sell.png",
+    "images/Catonic service.png"
+  ]
+};
+    const imgs = projectImages[pid] || [];
 
     cfgs.forEach((c, i) => {
       const card = document.createElement('div');
       card.className = 'fan-card' + (c.isMain ? ' fan-main' : ' fan-back');
 
+      card.innerHTML = `
+  <div class="fan-card-shell">
+    <img src="${imgs[i]}" alt="Project Screen">
+  </div>
+`;
       // Store base transform as CSS var so keyframe animation can extend it
       const base = `rotate(${c.rot}deg) translateX(${c.tx}px) translateY(${c.ty}px) scale(${c.sc})`;
       card.style.setProperty('--fb', base);
