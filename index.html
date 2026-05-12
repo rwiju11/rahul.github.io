@@ -1225,22 +1225,40 @@
     "images/Catonic service.png"
   ]
 };
-    const imgs = projectImages[pid] || [];
+   const imgs = projectImages[pid] || [];
 
-    cfgs.forEach((c, i) => {
-      const card = document.createElement('div');
-      card.className = 'fan-card' + (c.isMain ? ' fan-main' : ' fan-back');
+cfgs.forEach((c, i) => {
+  const card = document.createElement('div');
 
-      card.innerHTML = `
-  <div class="fan-card-shell">
-    <img src="${imgs[i]}" alt="Project Screen">
-  </div>
-`;
-      const base = `rotate(${c.rot}deg) translateX(${c.tx}px) translateY(${c.ty}px) scale(${c.sc})`;
+  card.className =
+    'fan-card' + (c.isMain ? ' fan-main' : ' fan-back');
+
+  // KEEP floating transforms
+  const base =
+    `rotate(${c.rot}deg)
+     translateX(${c.tx}px)
+     translateY(${c.ty}px)
+     scale(${c.sc})`;
 
   card.style.setProperty('--fb', base);
   card.style.transform = base;
   card.style.zIndex = c.z;
+
+  // FLOATING animation
+  card.style.animation =
+    `ff${i % 5} ${3.8 + i * 0.5}s ease-in-out ${i * 0.32}s infinite`;
+
+  // IMAGE
+  card.innerHTML = `
+    <div class="fan-card-shell">
+      <img src="${imgs[i]}" alt="Project Screen">
+    </div>
+  `;
+
+  // LIGHTBOX
+  card.addEventListener('click', () => {
+    openLightbox(imgs[i]);
+  });
 
   stage.appendChild(card);
 });
