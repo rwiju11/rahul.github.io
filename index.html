@@ -1236,6 +1236,14 @@
     <img src="${imgs[i]}" alt="Project Screen">
   </div>
 `;
+      const base = `rotate(${c.rot}deg) translateX(${c.tx}px) translateY(${c.ty}px) scale(${c.sc})`;
+
+  card.style.setProperty('--fb', base);
+  card.style.transform = base;
+  card.style.zIndex = c.z;
+
+  stage.appendChild(card);
+});
       // Store base transform as CSS var so keyframe animation can extend it
       const base = `rotate(${c.rot}deg) translateX(${c.tx}px) translateY(${c.ty}px) scale(${c.sc})`;
       card.style.setProperty('--fb', base);
